@@ -45,10 +45,13 @@ export default function AdminLayout({
 
         {/* Bottom */}
         <div className="mt-auto">
-          <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-foreground-subtle transition-colors hover:text-foreground">
+          <Link
+            href="/"
+            className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-foreground-subtle transition-colors hover:text-foreground"
+          >
             <LogOut size={16} />
-            Sair
-          </button>
+            Voltar ao site
+          </Link>
         </div>
       </aside>
 
