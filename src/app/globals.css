@@ -1,26 +1,72 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base */
+  --background: #fdfcf7;
+  --background-secondary: #f5f3ea;
+  --foreground: #0a0a0a;
+  --foreground-muted: #6b6b6b;
+  --foreground-subtle: #a8a8a8;
+
+  /* Brand */
+  --verde: #008c36;
+  --verde-light: #00b347;
+  --verde-glow: rgba(0, 140, 54, 0.15);
+  --amarelo: #f5c800;
+  --amarelo-light: #ffe44d;
+  --amarelo-glow: rgba(245, 200, 0, 0.2);
+
+  /* Glass — sobre fundo claro */
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(0, 0, 0, 0.07);
+  --glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+
+  /* Radius */
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+}
+
+/* Força light mode — sem depender do sistema */
+html {
+  color-scheme: light;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
   --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-subtle: var(--foreground-subtle);
+
+  --color-verde: var(--verde);
+  --color-verde-light: var(--verde-light);
+  --color-amarelo: var(--amarelo);
+  --color-amarelo-light: var(--amarelo-light);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--verde);
+  border-radius: 99px;
 }
