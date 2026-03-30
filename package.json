@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed:products": "npx tsx --env-file=.env prisma/seed/seed-product.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.2",
@@ -27,7 +28,7 @@
     "eslint-config-next": "16.2.1",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "prisma": "^6.0.0",
+    "prisma": "^6.19.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

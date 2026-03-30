@@ -4,7 +4,6 @@
 import { revalidatePath } from "next/cache"
 import { db } from "../db/db"
 
-// Tipagem estrita pra não deixar passar lixo pro banco
 export type CheckoutFormData = {
   nome: string
   cpf: string
@@ -20,10 +19,18 @@ export type CheckoutFormData = {
 }
 
 export async function createPendingOrder(formData: CheckoutFormData, productId: string, price: number) {
-  try {
-    const randomNum = Math.floor(1000 + Math.random() * 9000) // Em escala usar nanoid ou sequence.
-    const orderNumber = `HX-${randomNum}`
+  console.log("🔥 [ACTION CHECKOUT] Iniciada!");
+  console.log("📦 Produto ID:", productId);
+  console.log("💰 Preço:", price);
+  console.log("📝 Dados do cliente recebidos:", JSON.stringify(formData, null, 2));
 
+  try {
+    const randomNum = Math.floor(1000 + Math.random() * 9000)
+    const orderNumber = `HX-${randomNum}`
+    console.log("🎫 Gerando pedido:", orderNumber);
+
+    console.log("⏳ Disparando insert no Prisma...");
+    
     const order = await db.order.create({
       data: {
         orderNumber,
@@ -47,12 +54,14 @@ export async function createPendingOrder(formData: CheckoutFormData, productId: 
       }
     })
 
+    console.log("✅ [SUCESSO] Pedido criado no banco com ID:", order.id);
+
     revalidatePath("/admin")
     revalidatePath("/admin/pedidos")
 
     return { success: true, orderId: order.id, orderNumber: order.orderNumber }
   } catch (error) {
-    console.error("Erro fatal no checkout:", error)
+    console.error("❌ [ERRO FATAL NO PRISMA]:", error);
     return { success: false, error: "Falha na comunicação com o banco." }
   }
 }

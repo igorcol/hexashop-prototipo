@@ -5,6 +5,7 @@ import { X, Loader2 } from "lucide-react"
 import { useState } from "react"
 import { formatPrice } from "@/lib/utils"
 import type { Product } from "@/types/product"
+import { createPendingOrder } from "@/lib/actions/checkout"
 
 interface CheckoutModalProps {
   product: Product
@@ -111,11 +112,26 @@ export function CheckoutModal({ product, isOpen, onClose }: CheckoutModalProps) 
 
   async function handleSubmit() {
     const required = [form.nome, form.cpf, form.zap, form.cep, form.rua, form.numero, form.cidade]
-    if (required.some((v) => !v)) return
+    
+    // Não envia form vazio
+    if (required.some((v) => !v)) {
+      console.log("Faltam campos obrigatórios!")
+      return
+    }
+    
     setLoading(true)
-    await new Promise((r) => setTimeout(r, 1800))
+    
+    // Chama a action
+    const result = await createPendingOrder(form, product.id, product.price)
+    
     setLoading(false)
-    setStep("pix")
+
+    if (result.success) {
+      setStep("pix")
+    } else {
+      console.error(result.error)
+      alert("Erro ao processar pedido. Tente novamente.")
+    }
   }
 
   async function handlePixPago() {
