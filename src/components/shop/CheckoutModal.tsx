@@ -66,6 +66,8 @@ function formatCEP(value: string) {
     .replace(/(\d{5})(\d{1,3})$/, "$1-$2")
 }
 
+
+
 export function CheckoutModal({ product, isOpen, onClose }: CheckoutModalProps) {
   const [step, setStep] = useState<Step>("form")
   const [loading, setLoading] = useState(false)
