@@ -111,26 +111,20 @@ export function CheckoutModal({ product, isOpen, onClose }: CheckoutModalProps) 
   }
 
   async function handleSubmit() {
+    // Validação básica
     const required = [form.nome, form.cpf, form.zap, form.cep, form.rua, form.numero, form.cidade]
-    
-    // Não envia form vazio
-    if (required.some((v) => !v)) {
-      console.log("Faltam campos obrigatórios!")
-      return
-    }
-    
+    if (required.some((v) => !v)) return
+
     setLoading(true)
-    
-    // Chama a action
+
     const result = await createPendingOrder(form, product.id, product.price)
-    
+
     setLoading(false)
 
     if (result.success) {
       setStep("pix")
     } else {
-      console.error(result.error)
-      alert("Erro ao processar pedido. Tente novamente.")
+      alert("Erro ao processar pedido.")
     }
   }
 
