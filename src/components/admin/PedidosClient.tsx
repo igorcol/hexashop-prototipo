@@ -4,6 +4,7 @@ import { useState } from "react"
 import { formatPrice } from "@/lib/utils"
 import { Search, Phone, MapPin } from "lucide-react"
 import { OrderStatus, UIOrder } from "@/lib/queries/oders"
+import { useRouter } from "next/navigation"
 
 
 const statusConfig: Record<OrderStatus, { label: string; classes: string }> = {
@@ -24,6 +25,7 @@ const filters: { label: string; value: OrderStatus | "todos" }[] = [
 export function PedidosClient({ initialOrders }: { initialOrders: UIOrder[] }) {
   const [filter, setFilter] = useState<OrderStatus | "todos">("todos")
   const [search, setSearch] = useState("")
+  const router = useRouter()
 
   const filtered = initialOrders.filter((o) => {
     const matchStatus = filter === "todos" || o.status === filter
@@ -91,7 +93,10 @@ export function PedidosClient({ initialOrders }: { initialOrders: UIOrder[] }) {
             </div>
           ) : (
             filtered.map((order) => (
-              <div key={order.id} className="grid grid-cols-12 items-center px-6 py-4 transition-colors hover:bg-background-secondary">
+              <div key={order.id} 
+              onClick={() => router.push(`/admin/pedidos/${order.id}`)}
+              className="grid grid-cols-12 items-center px-6 py-4 transition-colors hover:bg-background-secondary"
+              >
                 <span className="col-span-1 text-xs font-black text-foreground-muted">{order.id}</span>
                 <div className="col-span-3 space-y-0.5">
                   <p className="text-sm font-semibold text-foreground">{order.customer.nome}</p>
