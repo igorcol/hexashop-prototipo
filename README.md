@@ -1,13 +1,13 @@
-# 🇧🇷 HexaShop: E-commerce Fullstack Disruptivo
+# HexaShop: E-commerce Fullstack
 
-> **Status:** 🚀 Em desenvolvimento (Estudo de Caso / MVP)
+> **Status:** 🚀 Completo (Estudo de Caso / MVP)
 > 
-> Um ecossistema de e-commerce completo, focado em performance e cultura de pertencimento, construído para validar fluxos complexos de checkout, gestão de inventário e logística em tempo real.
+> Um ecossistema de e-commerce completo, focado em performance e UX, construído para validar fluxos complexos de checkout, gestão de inventário e logística em tempo real.
 
 ---
 
 ## ⚽ O Projeto
-O **HexaShop** não é apenas uma loja virtual; é um laboratório de engenharia de software focado em **Next.js 15+**. O objetivo foi construir uma experiência de compra "zero fricção" aliada a um painel administrativo robusto que conversa diretamente com um banco de dados relacional.
+O **HexaShop** não é apenas uma loja virtual; é um estudo de engenharia de software focado em **Next.js 15+**. O objetivo foi construir uma experiência de compra "zero fricção" aliada a um painel administrativo que conversa diretamente com um banco de dados relacional.
 
 ### 🛠️ Core Stack
 * **Framework:** Next.js (App Router)
@@ -15,7 +15,6 @@ O **HexaShop** não é apenas uma loja virtual; é um laboratório de engenharia
 * **Estilização:** Tailwind CSS (Arquitetura Offwhite/Disruptiva)
 * **Banco de Dados:** SQLite (via Prisma ORM)
 * **Animações:** Framer Motion (Checkouts fluidos)
-* **Ícones:** Lucide React
 
 ---
 
@@ -58,7 +57,7 @@ npx prisma db push
 # Gera o Client dentro da pasta src/generated (Solução Anti-Bug)
 npx prisma generate
 
-# Alimenta o banco com o produto inicial (Kit Resgate)
+# Alimenta o banco com o produto inicial
 npx tsx --env-file=.env prisma/seed/seed-product.ts
 ```
 
@@ -69,10 +68,8 @@ npm run dev
 ```
 
 ### 🧠 Estudo de Caso: Desafios Vencidos
-ste repositório documenta a superação de desafios reais de engenharia:
+Este repositório documenta a superação de desafios reais de engenharia:
 
 Resolução de Caminhos: Implementação de um bypass para o Prisma Client no ambiente Windows/Next.js 15.
-
 Estado Dinâmico: Gerenciamento de Promises em rotas dinâmicas (params assíncronos no Next 15).
-
 Revalidation: Uso de revalidatePath para garantir que o dashboard atualize os números em tempo real após ações do admin.
