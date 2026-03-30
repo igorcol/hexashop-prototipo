@@ -2,7 +2,7 @@ import { Product } from "@/types/product";
 
 export const products: Product[] = [
   {
-    id: "1",
+    id: "cmnclcspp0000jl4kr6o5d5uw",
     slug: "kit-resgate-do-hexa",
     name: "Kit Resgate do Hexa",
     description:

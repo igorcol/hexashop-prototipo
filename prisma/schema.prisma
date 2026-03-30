@@ -1,7 +1,8 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client" // <-- FORÇA BRUTA AQUI
 }
+
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
