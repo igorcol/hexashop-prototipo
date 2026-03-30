@@ -7,19 +7,29 @@ import Link from "next/link"
 
 export const dynamic = "force-dynamic"
 
-export default async function PedidoDetailsPage({ params }: { params: { id: string } }) {
+// No Next.js 15+, o params deve ser tratado como uma Promise
+interface PageProps {
+  params: Promise<{ id: string }>
+}
+
+export default async function PedidoDetailsPage({ params }: PageProps) {
+  // 1. Aguarda a resolução dos parâmetros da URL
+  const { id } = await params
+
+  // 2. Busca o pedido específico baseado no ID extraído (ex: HX-6008)
   const order = await db.order.findFirst({
-    where: { orderNumber: params.id },
+    where: { orderNumber: id },
     include: { product: true }
   })
 
+  // 3. Se não achar nada no banco, manda pro 404
   if (!order) return notFound()
 
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
       <div className="mx-auto max-w-5xl space-y-8">
         
-        {/* Header com Navegação */}
+        {/* Header com Navegação Dinâmica */}
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="space-y-2">
             <Link 
@@ -51,7 +61,7 @@ export default async function PedidoDetailsPage({ params }: { params: { id: stri
           {/* COLUNA PRINCIPAL (ESQUERDA) */}
           <div className="space-y-8 lg:col-span-2">
             
-            {/* Card do Produto */}
+            {/* Card do Produto Dinâmico */}
             <div className="relative overflow-hidden rounded-3xl border border-(--glass-border) bg-background shadow-sm">
               <div className="absolute top-0 left-0 h-1 w-full bg-verde" />
               <div className="p-8">
@@ -63,7 +73,7 @@ export default async function PedidoDetailsPage({ params }: { params: { id: stri
                     <div className="space-y-1">
                       <p className="text-xs font-bold uppercase tracking-widest text-verde">Item do Pedido</p>
                       <h3 className="text-2xl font-black text-foreground">{order.product.name}</h3>
-                      <p className="text-sm text-foreground-muted">SKU: {order.product.slug.toUpperCase()}</p>
+                      <p className="text-sm text-foreground-muted uppercase">SKU: {order.product.slug}</p>
                     </div>
                   </div>
                   <div className="text-right">
@@ -74,7 +84,7 @@ export default async function PedidoDetailsPage({ params }: { params: { id: stri
               </div>
             </div>
 
-            {/* Grid de Dados */}
+            {/* Grid de Dados Dinâmicos */}
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {/* Cliente */}
               <div className="rounded-3xl border border-(--glass-border) bg-background p-8 space-y-4">
@@ -160,8 +170,8 @@ export default async function PedidoDetailsPage({ params }: { params: { id: stri
               </div>
             </div>
 
-            {/* Status e Ação de Despacho */}
-            <DispatchForm dbId={order.id} status={order.status} />
+            {/* O DispatchForm agora resetará corretamente por causa da KEY única */}
+            <DispatchForm key={order.id} dbId={order.id} status={order.status} />
             
             <div className="p-4 text-center">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground-subtle">

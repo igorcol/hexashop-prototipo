@@ -13,8 +13,9 @@ export async function dispatchOrder(dbId: string, trackingCode: string) {
       }
     })
 
+    revalidatePath("/admin")
     revalidatePath("/admin/pedidos")
-    revalidatePath(`/admin/pedidos/[id]`, "page")
+    revalidatePath("/admin/pedidos/[id]", "page")
 
     return { success: true }
   } catch (error) {
